@@ -1,7 +1,8 @@
+import useMeetingActions from "@/hooks/useMeetingActions";
 import { useState } from "react";
+import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Input } from "./ui/input";
-import { Button } from "./ui/button";
 
 interface MeetingModalProps {
   isOpen: boolean;
@@ -17,12 +18,20 @@ const MeetingModal = ({
   isJoinMeeting,
 }: MeetingModalProps) => {
   const [meetingUrl, setMeetingUrl] = useState("");
+  const { createInstantMeeting, joinMeeting } = useMeetingActions();
 
-  const createMeeting = async () => {};
+  const handleStart = async () => {
+    if (isJoinMeeting) {
+      // if it's a full URL, extract the meetingId from the URL
+      const meetingId = meetingUrl.split("/").pop();
+      if (meetingId) joinMeeting(meetingId);
+    } else {
+      createInstantMeeting();
+    }
 
-  const joinMeeting = async () => {};
-
-  const handleStart = async () => {};
+    setMeetingUrl("");
+    onClose();
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -32,23 +41,25 @@ const MeetingModal = ({
         </DialogHeader>
 
         <div className="space-y-4 pt-4">
-          <Input
-            placeholder="Paste meeting link here..."
-            value={meetingUrl}
-            onChange={(e) => setMeetingUrl(e.target.value)}
-          />
-        </div>
+          {isJoinMeeting && (
+            <Input
+              placeholder="Paste meeting link here..."
+              value={meetingUrl}
+              onChange={(e) => setMeetingUrl(e.target.value)}
+            />
+          )}
 
-        <div className="flex justify-end gap-3">
-          <Button variant="outline" onClick={onClose}>
-            Cancel
-          </Button>
-          <Button
-            onClick={handleStart}
-            disabled={isJoinMeeting && !meetingUrl.trim()}
-          >
-            {isJoinMeeting ? "Join Meeting" : "Start Meeting"}
-          </Button>
+          <div className="flex justify-end gap-3">
+            <Button variant="outline" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button
+              onClick={handleStart}
+              disabled={isJoinMeeting && !meetingUrl.trim()}
+            >
+              {isJoinMeeting ? "Join Meeting" : "Start Meeting"}
+            </Button>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
