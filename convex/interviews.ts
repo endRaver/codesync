@@ -64,7 +64,7 @@ export const createInterview = mutation({
   },
 });
 
-export const updateInterview = mutation({
+export const updateInterviewStatus = mutation({
   args: {
     id: v.id("interviews"),
     status: v.string(),

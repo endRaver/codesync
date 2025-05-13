@@ -21,6 +21,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
+import EndCallButton from "./EndCallButton";
 
 function MeetingRoom() {
   const router = useRouter();
@@ -94,10 +95,7 @@ function MeetingRoom() {
                     <UsersIcon className="size-4" />
                   </Button>
 
-                  {/* <EndCallButton /> */}
-                  <Button variant="outline" size="icon" className="size-10">
-                    endcall
-                  </Button>
+                  <EndCallButton />
                 </div>
               </div>
             </div>
