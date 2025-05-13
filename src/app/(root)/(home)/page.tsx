@@ -1,18 +1,19 @@
 "use client";
 
 import ActionCard from "@/components/ActionCard";
+import LoaderUI from "@/components/LoaderUI";
+import MeetingModal from "@/components/MeetingModal";
 import { QUICK_ACTIONS } from "@/constants";
 import { useUserRole } from "@/hooks/useUserRole";
 import { useQuery } from "convex/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { api } from "../../../../convex/_generated/api";
-import { useRouter } from "next/navigation";
-import MeetingModal from "@/components/MeetingModal";
 
 export default function Home() {
   const router = useRouter();
 
-  const { isInterviewer, isCandidate } = useUserRole();
+  const { isInterviewer, isCandidate, isLoading } = useUserRole();
   const interviews = useQuery(api.interviews.getMyInterviews);
 
   const [showModal, setShowModal] = useState(false);
@@ -32,6 +33,8 @@ export default function Home() {
         router.push(`/${title.toLowerCase()}`);
     }
   };
+
+  if (isLoading) return <LoaderUI />;
 
   return (
     <div className="container max-w-7xl mx-auto p-6">
