@@ -21,12 +21,12 @@ export default defineSchema({
     interviewerIds: v.array(v.string()),
   })
     .index("by_candidate_id", ["candidateId"])
-    .index("by_streamCallId", ["streamCallId"]),
+    .index("by_stream_call_id", ["streamCallId"]),
 
   comments: defineTable({
     content: v.string(),
     rating: v.number(),
-    interviewId: v.string(),
     interviewerId: v.string(),
+    interviewId: v.id("interviews"),
   }).index("by_interview_id", ["interviewId"]),
 });
