@@ -60,7 +60,7 @@ function MeetingCard({ interview }: { interview: Interview }) {
       </CardHeader>
 
       <CardContent>
-        {status !== "live" && (
+        {status === "live" && (
           <Button
             className="w-full"
             onClick={() => joinMeeting(interview.streamCallId)}
