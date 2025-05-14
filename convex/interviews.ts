@@ -17,14 +17,14 @@ export const getMyInterviews = query({
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) return [];
 
-    const interview = await ctx.db
+    const interviews = await ctx.db
       .query("interviews")
       .withIndex("by_candidate_id", (q) =>
         q.eq("candidateId", identity.subject)
       )
-      .first();
+      .collect();
 
-    return interview;
+    return interviews!;
   },
 });
 
