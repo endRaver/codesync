@@ -1,5 +1,6 @@
 "use client";
 
+import CommentDialog from "@/components/CommentDialog";
 import LoaderUI from "@/components/LoaderUI";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -14,17 +15,17 @@ import {
 import { INTERVIEW_CATEGORY } from "@/constants";
 import { getCandidateInfo, groupInterviews } from "@/lib/utils";
 import { useMutation, useQuery } from "convex/react";
+import { format } from "date-fns";
 import {
   CalendarIcon,
-  ClockIcon,
   CheckCircle2Icon,
+  ClockIcon,
   XCircleIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
 import { api } from "../../../../convex/_generated/api";
 import { Doc, Id } from "../../../../convex/_generated/dataModel";
-import { format } from "date-fns";
 
 type Interview = Doc<"interviews">;
 
@@ -149,7 +150,7 @@ const DashboardPage = () => {
                                 </Button>
                               </div>
                             )}
-                            {/* <CommentDialog interviewId={interview._id} /> */}
+                            <CommentDialog interviewId={interview._id} />
                           </CardFooter>
                         </Card>
                       );

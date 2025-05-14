@@ -1,4 +1,6 @@
+import MeetingCard from "@/components/MeetingCard";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Dialog,
   DialogContent,
@@ -16,6 +18,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import UserInfo from "@/components/UserInfo";
+import { TIME_SLOTS } from "@/constants";
 import { useUser } from "@clerk/nextjs";
 import { useStreamVideoClient } from "@stream-io/video-react-sdk";
 import { useMutation, useQuery } from "convex/react";
@@ -23,9 +26,6 @@ import { Loader2Icon, XIcon } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { api } from "../../../../convex/_generated/api";
-import { Calendar } from "@/components/ui/calendar";
-import { TIME_SLOTS } from "@/constants";
-import MeetingCard from "@/components/MeetingCard";
 
 function InterviewScheduleUI() {
   const client = useStreamVideoClient();
